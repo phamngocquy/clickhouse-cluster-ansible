@@ -6,15 +6,6 @@ default:
 
 timezone: America/New_York
 
-kraken:
-  url: http://kraken.dtl
-  group_id: 105
-  instance: us
-  sentry_dsn: http://e85566365651460eb1fa3a1653becec3@10.202.208.51:9001/41
+runtime_user: haku
 
-cpus: 2
-memory: 128
-
-runtime_user: qpham
-
-run_by: kraken
+run_by: systemd
