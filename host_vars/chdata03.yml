@@ -1,6 +1,5 @@
 home: /local/disk2/chdata03/
 
-hostname: ny5-dtldb03
 http_port: 8223
 tcp_port: 9100
 keeper_port: 9181
