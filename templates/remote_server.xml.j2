@@ -1,0 +1,14 @@
+<clickhouse>
+    <remote_servers>
+        <{{ cluster.name }}>
+          {% for chnode in groups[group_names[0]] %}
+          <shard>
+            <replica>
+              <host>{{hostvars[chnode].ansible_host}}</host>
+              <port>{{hostvars[chnode].tcp_port}}</port>
+            </replica>
+          </shard>
+          {% endfor %}
+        </{{ cluster.name }}>
+    </remote_servers>
+</clickhouse>

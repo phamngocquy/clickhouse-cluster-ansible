@@ -1,0 +1,49 @@
+- name: deploy clickhouse db
+  hosts: all
+  tasks:
+
+    - name: create folder structure
+      block:
+        - set_fact: base_dir={{ home }}/{{ inventory_hostname }}
+        - set_fact: build_dir={{ base_dir }}/.source
+        - set_fact: env_dir={{ base_dir }}/env
+
+        - file: path={{ home }} state=directory mode=0700
+        - file: path={{ base_dir }} state=directory mode=0700
+        - file: path={{ build_dir }} state=directory mode=0755
+        - file: path={{ env_dir }} state=directory mode=0755
+        - file: path={{ base_dir }}/chdata state=directory mode=0700
+
+    - name: install clickhouse
+      block:
+          - get_url:
+              url: "{{clickhouse.source_url | default(default.clickhouse.source_url)}}"
+              dest: "{{build_dir}}/{{clickhouse.source_filename | default(default.clickhouse.source_filename)}}"
+              mode: 0644
+          - template: src=setup_clickhouse.sh.j2 dest={{ build_dir }}/setup_clickhouse.sh mode=0755
+          - shell: "cd {{ build_dir }} && ./setup_clickhouse.sh"
+          - shell: "chmod -R 755 {{ env_dir }}"
+          - shell: "rm -f {{env_dir}}/etc/clickhouse-server/config.d/openssl.xml"
+
+    - name: configuration clickhouse
+      block:
+          - template: src=clickhouse_server_config.xml.j2 dest={{ env_dir }}/etc/clickhouse-server/config.xml
+          - template: src=clickhouse_users_config.xml.j2 dest={{ env_dir }}/etc/clickhouse-server/users.xml
+          - template: src=remote_server.xml.j2 dest={{ env_dir }}/etc/clickhouse-server/config.d/remote_server.xml
+          - template: src=enable_keeper.xml.j2 dest={{ env_dir }}/etc/clickhouse-server/config.d/enable_keeper.xml
+          - template: src=use_keeper.xml.j2 dest={{ env_dir }}/etc/clickhouse-server/config.d/use_keeper.xml
+          - template: src=macros.xml.j2 dest={{ env_dir }}/etc/clickhouse-server/config.d/macros.xml
+          - template: src=activate.sh.j2 dest={{ env_dir }}/activate.sh mode=0755
+          - template: src=run.sh.j2 dest={{ base_dir }}/run.sh mode=0755
+
+    - name: setup systemd
+      become: true
+      block:
+        - name: clickhouse systemd unit
+          template:
+            src: clickhouse.systemd.service.j2
+            dest: "/lib/systemd/system/{{ cluster.name }}-{{ inventory_hostname }}-clickhouse.service"
+            mode: 0664
+          notify:
+            - restart clickhouse
+      when: run_by == 'systemd'

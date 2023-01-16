@@ -1,0 +1,22 @@
+all:
+  children:
+    test_cluster:
+    prod_cluster:
+
+test_cluster:
+  hosts:
+    chlocal:
+      ansible_host: 127.0.0.1
+
+prod_cluster:
+  hosts:
+    chdata01:
+      ansible_host: chdata01_host
+    chdata02:
+      ansible_host: chdata02_host
+    chdata03:
+      ansible_host: chdata03_host
+    chdata04:
+      ansible_host: chdata04_host
+    chdata05:
+      ansible_host: chdata05_host

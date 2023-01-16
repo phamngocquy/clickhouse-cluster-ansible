@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+source {{ base_dir }}/env.sh
+cd {{ base_dir }}/
+clickhouse server --config-file={{ env_dir }}/etc/clickhouse-server/config.xml --pid-file=clickhouse.pid --deamon

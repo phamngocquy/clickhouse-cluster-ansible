@@ -1,0 +1,20 @@
+default:
+  clickhouse:
+    source_url: https://packages.clickhouse.com/tgz/stable/clickhouse-common-static-22.12.3.5-amd64.tgz
+    source_folder: clickhouse-common-static-22.12.3.5-amd64
+    source_filename: clickhouse-common-static-22.12.3.5-amd64.tgz
+
+timezone: America/New_York
+
+kraken:
+  url: http://kraken.dtl
+  group_id: 105
+  instance: us
+  sentry_dsn: http://e85566365651460eb1fa3a1653becec3@10.202.208.51:9001/41
+
+cpus: 2
+memory: 128
+
+runtime_user: qpham
+
+run_by: kraken

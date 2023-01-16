@@ -1,0 +1,29 @@
+[Unit]
+Description={{ cluster }}.{{ inventory_hostname }}.clickhouse
+After=network.target
+Wants=network.target
+
+[Service]
+User=devops
+
+ExecStart={{ base_dir }}/run.sh
+
+# Send HUP to reload from patroni.yml
+ExecReload=/bin/kill -s HUP $MAINPID
+
+Restart=always
+RestartSec=20
+LimitNOFILE=32768
+
+# This does not work because we use too old systemd
+# StandardOutput=append:{{ env_dir }}/var/log/clickhouse-server/clickhouse.systemd.logs
+# StandardError=inherit
+
+# Give a reasonable amount of time for the server to start up/shut down
+TimeoutSec=30
+
+# Restart the service if it crashed
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

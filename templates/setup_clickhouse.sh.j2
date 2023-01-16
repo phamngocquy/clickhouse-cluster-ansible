@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+set -o pipefail
+
+export PATH={{ env_dir }}/:$PATH
+
+if [ -f {{ base_dir }}/clickhouse ]; then
+    exit 0;
+fi
+cd {{ build_dir }}
+mkdir -p {{clickhouse.source_folder | default(default.clickhouse.source_folder)}}
+tar xf {{ clickhouse.source_filename | default(default.clickhouse.source_filename) }} --strip-components=1 -C {{clickhouse.source_folder | default(default.clickhouse.source_folder)}}
+
+{{clickhouse.source_folder | default(default.clickhouse.source_folder)}}/usr/bin/clickhouse install --data-path={{ base_dir }}/chdata/  --prefix={{ env_dir }} --user={{ ansible_host }}
+
+
+#mv {{clickhouse.source_folder | default(default.clickhouse.source_folder)}}/usr/bin/* {{env_dir}}
+
