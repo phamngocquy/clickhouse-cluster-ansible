@@ -1,6 +1,7 @@
 <clickhouse>
     <remote_servers>
         <{{ cluster.name }}>
+        <secret>this_is_secret_key</secret>
           {% for chnode in groups[group_names[0]] %}
           <shard>
             <replica>
