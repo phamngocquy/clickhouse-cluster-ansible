@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<clickhouse>
+    <logger>
+        <level>error</level>
+		<console>true</console>
+    </logger>
+
+    <http_port>{{ http_port }}</http_port>
+    <tcp_port>{{ tcp_port }}</tcp_port>
+    <mysql_port>{{ mysql_port }}</mysql_port>
+    <interserver_http_port>{{ interserver_http_port }}</interserver_http_port>
+
+    <path>{{ env_dir }}/etc/clickhouse-server/</path>
+
+    <uncompressed_cache_size>8589934592</uncompressed_cache_size>
+    <mark_cache_size>5368709120</mark_cache_size>
+    <mlock_executable>true</mlock_executable>
+	  <user_directories>
+		  <users_xml>
+		    <path>users.xml</path>
+		  </users_xml>
+	  </user_directories>
+    <profiles>
+        <default/>
+    </profiles>
+    <quotas>
+        <default/>
+    </quotas>
+</clickhouse>

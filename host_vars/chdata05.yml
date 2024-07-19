@@ -1,0 +1,10 @@
+home: /local/disk2/chdata05/
+
+http_port: 8223
+tcp_port: 9100
+keeper_port: 9181
+raft_port: 9234
+mysql_port: 9105
+interserver_http_port: 9109
+
+

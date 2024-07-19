@@ -1,0 +1,10 @@
+<clickhouse>
+  <zookeeper>
+        {% for chnode in groups[group_names[0]] %}
+        <node index="{{ loop.index }}">
+            <host>{{ hostvars[chnode].ansible_host }}</host>
+            <port>{{ hostvars[chnode].keeper_port }}</port>
+        </node>
+        {% endfor %}
+  </zookeeper>
+</clickhouse>

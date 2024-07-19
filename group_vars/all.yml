@@ -1,0 +1,18 @@
+home: /home/qpham/clickhouse
+
+default:
+  clickhouse:
+    source_url: https://packages.clickhouse.com/tgz/lts/clickhouse-common-static-23.3.2.37-amd64.tgz
+    source_folder: clickhouse-common-static-23.3.2.37-amd64
+    source_filename: clickhouse-common-static-23.3.2.37-amd64.tgz
+    source_sha512: b1620433ca2ed68da607492210a33a7ba064f2e5c388e03ad0227860b23dc454e3b934f086c10eddc4f8f1105cef6edfa7170de471b9e7adc7b914d3048a3be0
+
+timezone: America/New_York
+
+runtime_user: qpham-pc
+
+run_by: systemd
+
+
+
+

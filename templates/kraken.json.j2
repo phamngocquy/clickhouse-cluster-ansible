@@ -1,0 +1,24 @@
+{
+  "user_username": "devops",
+  "user_token": "{{ kraken_token }}",
+  "group_id": {{ kraken.group_id }},
+  "disable_missing": false,
+  "enable_present": false,
+  "jobs": [
+    {
+      "name": "clickhouse - {{ inventory_hostname }}",
+      "group_id": {{ kraken.group_id }},
+      "kind": "service",
+      "timezone": "{{ timezone }}",
+      "command": "{{ base_dir }}/run.sh",
+      "shell": "bash",
+      "cpus": {{ cpus }},
+      "memory": {{ memory }},
+      "runtime_user": "{{ runtime_user }}",
+      "host": "{{ original_ssh_host }}",
+      "sentry_dsn": "{{ kraken.sentry_dsn }}",
+      "unreachable_timeout": 3600,
+      "starting_deadline": 300,
+    },
+  ]
+}

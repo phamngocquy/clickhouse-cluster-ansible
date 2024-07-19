@@ -1,0 +1,10 @@
+<clickhouse>
+    <distributed_ddl>
+        <path>/clickhouse/task_queue/ddl</path>
+    </distributed_ddl>
+    <macros>
+        <cluster>{{ cluster.name }}</cluster>
+        <shard>{{ ansible_host }}</shard>
+        <replica>r0-{{ ansible_host }}</replica>
+    </macros>
+</clickhouse>

@@ -1,0 +1,6 @@
+http_port: 8225
+tcp_port: 9102
+keeper_port: 9183
+raft_port: 9236
+mysql_port: 9107
+interserver_http_port: 9111
